@@ -25,8 +25,8 @@ const MentorSearch = () => {
       };
 
   return (
-    <div className="w-full flex justify-center items-start py-10 px-4">
-    <div className="max-w-5xl w-full bg-white bg-opacity-90 p-8 rounded-xl shadow-md border border-egr-pink">
+    <section className="bg-black text-white py-20 px-6 md:px-20 w-full">
+    <div className="max-w-6xl mx-auto bg-white bg-opacity-90 text-black p-10 rounded-xl border border-egr-pink">
       <h1 className="text-3xl font-bold text-center mb-6 text-egr-pink">Find a Mentor</h1>
 
       {/* Search Controls */}
@@ -61,7 +61,7 @@ const MentorSearch = () => {
 
           <button
             onClick={handleSearch}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            className="bg-egr-green text-white px-4 py-2 rounded hover:bg-green-600"
           >
             Search
           </button>
@@ -87,7 +87,7 @@ const MentorSearch = () => {
         )}
       </div>
     </div>
-  </div>
+  </section>
   );
 };
 

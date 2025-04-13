@@ -38,7 +38,8 @@ const MentorProfile = () => {
     if (!mentor) return <div className="text-center mt-10">Loading...</div>;
   
     return (
-      <div className="max-w-5xl mx-auto p-6">
+      <section className="bg-black text-white py-20 px-6 md:px-20 w-full">
+      <div className="max-w-5xl mx-auto">
         {/* Profile Header */}
         <div className="flex gap-4 items-center mb-6">
           <img
@@ -48,20 +49,22 @@ const MentorProfile = () => {
           />
           <div>
             <h1 className="text-3xl font-bold text-egr-pink">{mentor.full_name}</h1>
-            <p className="text-gray-600">{mentor.profession} – {mentor.job_title}</p>
-            <p className="text-sm text-gray-500">
+            <p className="text-white-600">{mentor.profession} – {mentor.job_title}</p>
+            <p className="text-sm text-white-500">
               Industry: {mentor.industry} | Experience: {mentor.experience} yrs
             </p>
           </div>
         </div>
   
         {/* Bio */}
+        <div className="bg-white text-black bg-opacity-90 rounded-xl p-8 border border-egr-pink">
         <h2 className="text-xl font-semibold mt-4 mb-2">About</h2>
-        <p className="text-gray-800 whitespace-pre-line">{mentor.bio}</p>
+        <p className="text-white-800 whitespace-pre-line">{mentor.bio}</p>
+        </div>
   
         {/* Mentorship Request Form */}
         {!submitted ? (
-          <div className="mt-8 bg-egr-light border border-egr-pink shadow-lg p-6 rounded-xl">
+          <div className="bg-white text-black bg-opacity-90 rounded-xl p-8 border border-egr-pink">
           <h2 className="text-lg font-semibold mb-3 text-egr-dark">Send Mentorship Request</h2>
         
           <textarea
@@ -74,7 +77,7 @@ const MentorProfile = () => {
         
           <button
             onClick={handleSubmitRequest}
-            className="mt-4 bg-egr-pink text-white px-6 py-2 rounded-md shadow-lg hover:bg-pink-800 transition"
+            className="bg-egr-green text-black px-6 py-2 rounded hover:bg-green-600 font-semibold"
           >
             Send Request
           </button>
@@ -85,6 +88,7 @@ const MentorProfile = () => {
           </div>
         )}
       </div>
+      </section>
     );
   };
 

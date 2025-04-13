@@ -87,8 +87,8 @@ const MentorRegister = () => {
   };
 
   return (
-    <div className="w-full flex justify-center items-center py-10 px-4">
-    <div className="max-w-3xl w-full bg-white bg-opacity-90 p-8 rounded-xl border border-egr-pink">
+    <section className="bg-black text-white py-20 px-6 md:px-20 w-full">
+    <div className="max-w-3xl mx-auto bg-white bg-opacity-90 text-black p-10 rounded-xl border border-egr-pink">
         <h2 className="text-2xl font-bold mb-6 text-center">Become a Mentor</h2>
         <form className="space-y-4" onSubmit={handleSubmit}>
           <Input
@@ -178,12 +178,12 @@ const MentorRegister = () => {
         )}
 
         </div>
-          <button type="submit" className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
+          <button type="submit" className="w-full bg-egr-green text-white py-2 px-4 rounded hover:bg-green-600 font-semibold">
             Register
           </button>
         </form>
       </div>
-    </div>
+    </section>
   );
 };
 

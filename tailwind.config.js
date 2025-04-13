@@ -4,10 +4,10 @@ module.exports = {
     extend: {
       colors: {
         egr: {
-          pink: "#D91D5A",
-          yellow: "#FECE44",
-          light: "#FDEFF3",
-          dark: "#111111",
+          black: "#0B0B0B",
+          green: "#69AA00",
+          white: "#FFFFFF",
+          gray: "#D4D4D4",
         },
       },
       animation: {
