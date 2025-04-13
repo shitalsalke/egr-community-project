@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import PageLayout from '../components/PageLayout';
 
 const MentorProfile = () => {
     const { id } = useParams();
@@ -38,6 +39,7 @@ const MentorProfile = () => {
     if (!mentor) return <div className="text-center mt-10">Loading...</div>;
   
     return (
+      <PageLayout>
       <section className="bg-black text-white py-20 px-6 md:px-20 w-full">
       <div className="max-w-5xl mx-auto">
         {/* Profile Header */}
@@ -89,6 +91,7 @@ const MentorProfile = () => {
         )}
       </div>
       </section>
+      </PageLayout>
     );
   };
 

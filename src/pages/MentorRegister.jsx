@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import PageLayout from '../components/PageLayout';
 
 
 const MentorRegister = () => {
@@ -87,9 +88,10 @@ const MentorRegister = () => {
   };
 
   return (
+    <PageLayout>
     <section className="bg-black text-white py-20 px-6 md:px-20 w-full">
     <div className="max-w-3xl mx-auto bg-white bg-opacity-90 text-black p-10 rounded-xl border border-egr-pink">
-        <h2 className="text-2xl font-bold mb-6 text-center">Become a Mentor</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">Register as a Mentor</h2>
         <form className="space-y-4" onSubmit={handleSubmit}>
           <Input
             label="Full Name"
@@ -184,6 +186,7 @@ const MentorRegister = () => {
         </form>
       </div>
     </section>
+    </PageLayout>
   );
 };
 

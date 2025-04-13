@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import PageLayout from '../components/PageLayout';
 
 const MentorLogin = () => {
   const [email, setEmail] = useState('');
@@ -28,6 +29,7 @@ const MentorLogin = () => {
   };
 
   return (
+    <PageLayout>
     <section className="bg-black text-white py-20 px-6 md:px-20 w-full">
     <div className="max-w-2xl mx-auto bg-white bg-opacity-80 text-black p-10 rounded-xl border border-egr-pink">
         <h2 className="text-2xl font-bold mb-6 text-center">Mentor Login</h2>
@@ -64,6 +66,7 @@ const MentorLogin = () => {
         </form>
       </div>
     </section>
+    </PageLayout>
   );
 };
 

@@ -1,4 +1,7 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import PageLayout from '../components/PageLayout';
+
 
 const Section = ({ children, className }) => (
   <section className={`min-h-screen w-full flex flex-col justify-center items-center px-6 ${className}`}>
@@ -48,20 +51,36 @@ const cardData = [
   
 
 const LandingPage = () => {
+  const navigate = useNavigate();
+
   return (
+    <PageLayout>
     <div className="bg-black text-white font-sans scroll-smooth">
-      {/* Navbar */}
-      <nav className="flex justify-between items-center px-12 py-5 max-w-7xl mx-auto">
+      {/* Navbar
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-black text-white flex justify-between items-center px-12 py-5 shadow-md">
         <div className="flex items-center gap-4">
           <img src="/images/logo-white.avif" alt="Educated Girls Rock" className="h-16 w-auto" />
         </div>
         <div className="space-x-4">
-          <button className="bg-egr-green hover:bg-green-600 text-white font-medium px-5 py-2 rounded-md">Search Mentors</button>
-          <button className="bg-egr-green hover:bg-green-600 text-white font-medium px-5 py-2 rounded-md">About Us</button>
-          <button className="bg-egr-green hover:bg-green-600 text-white font-medium px-5 py-2 rounded-md">Become a Mentor</button>
-          <button className="bg-yellow-300 hover:bg-yellow-600 text-black font-medium px-5 py-2 rounded-md">Login</button>
+          <button 
+          onClick={() => navigate('/search')}
+          className="bg-egr-green hover:bg-green-600 text-white font-medium px-5 py-2 rounded-md">Search Mentors</button>
+          <button 
+          onClick={() => window.open('https://www.educatedgirlsrock.org/', '_blank')}
+          className="bg-egr-green hover:bg-green-600 text-white font-medium px-5 py-2 rounded-md">
+          About Us
+          </button>
+
+          <button 
+          onClick={() => navigate('/register')}
+          className="bg-egr-green hover:bg-green-600 text-white font-medium px-5 py-2 rounded-md">Become a Mentor
+          </button>
+          <button 
+          onClick={() => navigate('/login')}
+          className="bg-yellow-300 hover:bg-yellow-600 text-black font-medium px-5 py-2 rounded-md">Login
+          </button>
         </div>
-      </nav>
+      </nav> */}
 
       {/* Hero Section */}
       <section className="flex flex-col md:flex-row items-center justify-between gap-12 px-6 md:px-16 lg:px-32 py-24 w-full">
@@ -74,7 +93,9 @@ const LandingPage = () => {
             Connect with inspiring women mentors in tech, business, and creative fields. Let’s grow and succeed together.
             </p>
             <br />
-            <button className="bg-egr-green hover:bg-green-600 text-white font-medium px-5 py-2 rounded-md">Find a mentor</button>
+            <button 
+            onClick={() => navigate('/search')}
+            className="bg-egr-green hover:bg-green-600 text-white font-medium px-5 py-2 rounded-md">Find a mentor</button>
         </div>
 
         {/* Right Image */}
@@ -201,7 +222,9 @@ const LandingPage = () => {
             Connect with inspiring women mentors in tech, business, and creative fields.
             Explore new paths, share your story, and thrive in a nurturing community.
             </p>
-            <button className="bg-egr-green text-black px-6 py-3 rounded-lg font-semibold hover:bg-green-400 transition">
+            <button 
+            onClick={() => navigate('/search')}
+            className="bg-egr-green text-black px-6 py-3 rounded-lg font-semibold hover:bg-green-400 transition">
             Get started
             </button>
         </div>
@@ -249,6 +272,7 @@ const LandingPage = () => {
 
 
     </div>
+    </PageLayout>
   );
 };
 

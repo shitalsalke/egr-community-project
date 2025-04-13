@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import PageLayout from '../components/PageLayout';
 
 const MentorSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -25,6 +26,7 @@ const MentorSearch = () => {
       };
 
   return (
+    <PageLayout>
     <section className="bg-black text-white py-20 px-6 md:px-20 w-full">
     <div className="max-w-6xl mx-auto bg-white bg-opacity-90 text-black p-10 rounded-xl border border-egr-pink">
       <h1 className="text-3xl font-bold text-center mb-6 text-egr-pink">Find a Mentor</h1>
@@ -88,6 +90,7 @@ const MentorSearch = () => {
       </div>
     </div>
   </section>
+  </PageLayout>
   );
 };
 
