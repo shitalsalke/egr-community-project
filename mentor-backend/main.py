@@ -6,6 +6,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from passlib.context import CryptContext
 from sqlalchemy import or_
 from sqlalchemy.orm import Session
+from fastapi import Body
+from fastapi.responses import JSONResponse
+from sqlalchemy.orm import Session
+from models import Mentor
+from passlib.context import CryptContext
 
 import crud
 import database
@@ -24,6 +29,7 @@ app.add_middleware(
 )
 
 models.Base.metadata.create_all(bind=database.engine)
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def get_db():
     db = database.SessionLocal()
@@ -133,3 +139,20 @@ def submit_request(mentor_id: int, message: str = Form(...), db: Session = Depen
 
     return { "message": "Request submitted successfully", "request_id": new_request.id }
 
+@app.post("/login")
+def login(
+    email: str = Body(...),
+    password: str = Body(...),
+    db: Session = Depends(get_db)
+):
+    mentor = db.query(Mentor).filter(Mentor.email == email).first()
+    if not mentor:
+        raise HTTPException(status_code=401, detail="Invalid email or password.")
+
+    if not pwd_context.verify(password, mentor.password_hash):
+        raise HTTPException(status_code=401, detail="Invalid email or password.")
+
+    return {
+        "message": "Login successful",
+        "mentor_id": mentor.id
+    }
