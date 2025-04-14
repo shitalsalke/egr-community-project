@@ -55,33 +55,7 @@ const LandingPage = () => {
 
   return (
     <PageLayout>
-    <div className="bg-black text-white font-sans scroll-smooth">
-      {/* Navbar
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-black text-white flex justify-between items-center px-12 py-5 shadow-md">
-        <div className="flex items-center gap-4">
-          <img src="/images/logo-white.avif" alt="Educated Girls Rock" className="h-16 w-auto" />
-        </div>
-        <div className="space-x-4">
-          <button 
-          onClick={() => navigate('/search')}
-          className="bg-egr-green hover:bg-green-600 text-white font-medium px-5 py-2 rounded-md">Search Mentors</button>
-          <button 
-          onClick={() => window.open('https://www.educatedgirlsrock.org/', '_blank')}
-          className="bg-egr-green hover:bg-green-600 text-white font-medium px-5 py-2 rounded-md">
-          About Us
-          </button>
-
-          <button 
-          onClick={() => navigate('/register')}
-          className="bg-egr-green hover:bg-green-600 text-white font-medium px-5 py-2 rounded-md">Become a Mentor
-          </button>
-          <button 
-          onClick={() => navigate('/login')}
-          className="bg-yellow-300 hover:bg-yellow-600 text-black font-medium px-5 py-2 rounded-md">Login
-          </button>
-        </div>
-      </nav> */}
-
+    <div className="bg-egr-gray text-white font-sans scroll-smooth">
       {/* Hero Section */}
       <section className="flex flex-col md:flex-row items-center justify-between gap-12 px-6 md:px-16 lg:px-32 py-24 w-full">
         {/* Left Text */}
@@ -99,12 +73,16 @@ const LandingPage = () => {
         </div>
 
         {/* Right Image */}
-        <div className="flex-1 w-full flex justify-center">
-            <img
+        <div className="flex-1 w-full flex justify-center relative">
+          {/* Background Halo */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white w-[200px] h-[100px] md:w-[400px] md:h-[400px] blur-3xl opacity-90 z-0"></div>
+
+          {/* Foreground Image */}
+          <img
             src="/images/asset1.avif"
             alt="Mentors"
-            className="rounded-lg w-full max-w-6xl object-cover"
-            />
+            className="relative z-10 rounded-lg w-full max-w-2xl object-cover"
+          />
         </div>
         </section>
 
@@ -130,7 +108,7 @@ const LandingPage = () => {
         </Section>
 
 
-        <Section className="bg-white text-black py-12 min-h-[550px]">
+        <Section className="bg-grey text-white py-12 min-h-[550px]">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl">
           {[
             {
@@ -157,7 +135,7 @@ const LandingPage = () => {
             <div key={i} className="text-center">
               <img src={item.img} alt={item.title} className="mb-5 rounded-lg mx-auto" />
               <h2 className="text-2xl font-semibold">{item.title}</h2>
-              <p className="text-lg text-gray-700 mt-2">{item.text}</p>
+              <p className="text-lg text-green-700 mt-2">{item.text}</p>
             </div>
           ))}
         </div>
@@ -168,9 +146,9 @@ const LandingPage = () => {
         <div className="max-w-6xl mx-auto space-y-12">
             {/* Section Heading */}
             <div>
-            <p className="uppercase tracking-wide text-sm text-egr-gray mb-2">Find the guidance you seek</p>
+            <p className="uppercase tracking-wide text-sm text-egr-green mb-2">Find the guidance you seek</p>
             <h2 className="text-4xl font-bold mb-4">Your inquiries, our insights</h2>
-            <p className="text-lg text-egr-gray max-w-3xl">
+            <p className="text-lg text-egr-green max-w-3xl">
                 Discover answers to frequently asked questions about our mentorship community and learn how to embark on your journey.
             </p>
             </div>
@@ -179,7 +157,7 @@ const LandingPage = () => {
             <div className="space-y-10 divide-y divide-[#2E2E2E]">
             <div className="md:flex justify-between pt-6">
                 <h3 className="font-semibold text-lg mb-2 md:mb-0">How can I connect with a mentor?</h3>
-                <p className="text-egr-gray md:ml-8">
+                <p className="text-egr-green md:ml-8">
                 Connecting with a mentor is straightforward! Use our intuitive search tool to find inspiring women in tech, business,
                 and creative fields eager to support you.
                 </p>
@@ -187,14 +165,14 @@ const LandingPage = () => {
 
             <div className="md:flex justify-between pt-6">
                 <h3 className="font-semibold text-lg mb-2 md:mb-0">Can I select my own mentor?</h3>
-                <p className="text-egr-gray md:ml-8">
+                <p className="text-egr-green md:ml-8">
                 Yes, you can! Browse through mentor profiles and choose someone who matches your interests and aspirations for a tailored experience.
                 </p>
             </div>
 
             <div className="md:flex justify-between pt-6">
                 <h3 className="font-semibold text-lg mb-2 md:mb-0">Will there be any fees for this?</h3>
-                <p className="text-egr-gray md:ml-8">
+                <p className="text-egr-green md:ml-8">
                 Joining our platform is completely free. We are committed to making mentorship accessible to all high school girls ready to learn and grow.
                 </p>
             </div>

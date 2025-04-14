@@ -7,7 +7,7 @@ module.exports = {
           black: "#0B0B0B",
           green: "#69AA00",
           white: "#FFFFFF",
-          gray: "#D4D4D4",
+          grey: "#D4D4D4",
         },
       },
       animation: {
