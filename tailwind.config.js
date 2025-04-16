@@ -8,6 +8,10 @@ module.exports = {
           green: "#69AA00",
           white: "#FFFFFF",
           grey: "#D4D4D4",
+          cblue:"#124E66",
+          cgrey:"#1F2833",
+          cblight:"#748D92",
+          cglight:"#D3D9D4",
         },
       },
       animation: {

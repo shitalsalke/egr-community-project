@@ -75,7 +75,7 @@ const LandingPage = () => {
         {/* Right Image */}
         <div className="flex-1 w-full flex justify-center relative">
           {/* Background Halo */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white w-[200px] h-[100px] md:w-[400px] md:h-[400px] blur-3xl opacity-90 z-0"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white w-[200px] h-[300px] md:w-[400px] md:h-[400px] blur-3xl opacity-90 z-0"></div>
 
           {/* Foreground Image */}
           <img
@@ -88,7 +88,7 @@ const LandingPage = () => {
 
       {/* Scrollable Sections From HomeScroll */}
       <Section>
-        <h2 className="text-4xl font-bold mb-10 text-center">Shape your future with guidance</h2>
+        <h2 className="text-5xl font-bold mb-10 text-center">Shape your future with guidance</h2>
         <div className="flex flex-wrap gap-8 w-full max-w-7xl">
         {cardData.map((card, index) => (
         <Card
@@ -99,8 +99,8 @@ const LandingPage = () => {
             icon={card.icon}
             className={`${
             index === 0 || index === 3
-                ? 'md:w-[55%] w-full md:min-h-[360px]'
-                : 'md:w-[40%] w-full md:min-h-[300px]'
+                ? 'md:w-[53%] w-full md:min-h-[360px]'
+                : 'md:w-[35%] w-full md:min-h-[300px]'
             }`}
         />
         ))}
@@ -108,8 +108,8 @@ const LandingPage = () => {
         </Section>
 
 
-        <Section className="bg-grey text-white py-12 min-h-[550px]">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl">
+        <Section className="bg-egr-cglight text-black py-12 min-h-[550px]">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-6xl">
           {[
             {
               title: 'Stories that inspire and empower',
@@ -135,7 +135,7 @@ const LandingPage = () => {
             <div key={i} className="text-center">
               <img src={item.img} alt={item.title} className="mb-5 rounded-lg mx-auto" />
               <h2 className="text-2xl font-semibold">{item.title}</h2>
-              <p className="text-lg text-green-700 mt-2">{item.text}</p>
+              <p className="text-lg text-gray-700 mt-2">{item.text}</p>
             </div>
           ))}
         </div>
