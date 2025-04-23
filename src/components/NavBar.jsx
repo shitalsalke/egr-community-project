@@ -5,25 +5,43 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-egr-cblue text-white flex justify-between items-center px-12 py-5 shadow-md">
-      <div className="flex items-center gap-4">
-        <img src="/images/logo-white.avif" alt="EGR Logo" className="h-16 w-auto" />
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-egr2-cgrey text-black border-b border-gray-300 shadow-sm">
+      {/* Logo centered at top */}
+      <div className="flex justify-center py-4">
+        <img src="/images/logo-black.png" alt="EGR Logo" className="h-20 w-auto" />
       </div>
-      <div className="space-x-4">
-        <button onClick={() => navigate('/')} className="bg-egr-cblight hover:bg-green-600 text-white font-medium px-5 py-2 rounded-md">
-          Home
+
+      {/* Nav Links centered below logo */}
+      <div className="flex flex-wrap justify-center gap-6 pb-4">
+        <button
+          onClick={() => navigate('/')}
+          className="tracking-widest text-sm hover:underline transition"
+        >
+          HOME
         </button>
-        <button onClick={() => navigate('/search')} className="bg-egr-cblight hover:bg-green-600 text-white font-medium px-5 py-2 rounded-md">
-          Search Mentors
+        <button
+          onClick={() => navigate('/search')}
+          className="tracking-widest text-sm hover:underline transition"
+        >
+          SEARCH MENTORS
         </button>
-        <button onClick={() => window.open('https://www.educatedgirlsrock.org/', '_blank')} className="bg-egr-cblight hover:bg-green-600 text-white font-medium px-5 py-2 rounded-md">
-          About Us
+        <button
+          onClick={() => window.open('https://www.educatedgirlsrock.org/', '_blank')}
+          className="tracking-widest text-sm hover:underline transition"
+        >
+          ABOUT US
         </button>
-        <button onClick={() => navigate('/register')} className="bg-egr-cblight hover:bg-green-600 text-white font-medium px-5 py-2 rounded-md">
-          Become a Mentor
+        <button
+          onClick={() => navigate('/register')}
+          className="tracking-widest text-sm hover:underline transition"
+        >
+          BECOME A MENTOR
         </button>
-        <button onClick={() => navigate('/login')} className="bg-yellow-200 hover:bg-yellow-400 text-black font-medium px-5 py-2 rounded-md">
-          Login
+        <button
+          onClick={() => navigate('/login')}
+          className="tracking-widest text-sm hover:underline transition"
+        >
+          LOGIN
         </button>
       </div>
     </nav>

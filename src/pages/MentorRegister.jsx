@@ -89,7 +89,7 @@ const MentorRegister = () => {
 
   return (
     <PageLayout>
-    <section className="bg-black text-white py-20 px-6 md:px-20 w-full">
+    <section className="bg-egr2-cgrey text-white py-20 px-6 md:px-20 w-full">
     <div className="max-w-3xl mx-auto bg-white bg-opacity-90 text-black p-10 rounded-xl border border-egr-pink">
         <h2 className="text-2xl font-bold mb-6 text-center">Register as a Mentor</h2>
         <form className="space-y-4" onSubmit={handleSubmit}>
@@ -180,7 +180,7 @@ const MentorRegister = () => {
         )}
 
         </div>
-          <button type="submit" className="w-full bg-egr-green text-white py-2 px-4 rounded hover:bg-green-600 font-semibold">
+          <button type="submit" className="w-full bg-green-300 text-black py-2 px-4 rounded hover:bg-green-200 font-semibold">
             Register
           </button>
         </form>

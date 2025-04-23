@@ -40,12 +40,12 @@ const MentorProfile = () => {
   
     return (
       <PageLayout>
-      <section className="bg-black text-white py-20 px-6 md:px-20 w-full">
+      <section className="bg-egr2-cgrey text-black py-20 px-6 md:px-20 w-full">
       <div className="max-w-5xl mx-auto">
         {/* Profile Header */}
         <div className="flex gap-4 items-center mb-6">
           <img
-            src={`/${mentor.profile_picture?.split('/').pop()}`}
+            src={`/uploads/${mentor.profile_picture?.split('/').pop()}`}
             alt="mentor"
             className="w-24 h-24 rounded-full object-cover border"
           />
@@ -79,7 +79,7 @@ const MentorProfile = () => {
         
           <button
             onClick={handleSubmitRequest}
-            className="bg-egr-green text-black px-6 py-2 rounded hover:bg-green-600 font-semibold"
+            className="bg-green-300 text-black px-6 py-2 rounded hover:bg-green-200 font-semibold"
           >
             Send Request
           </button>

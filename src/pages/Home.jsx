@@ -4,47 +4,31 @@ import PageLayout from '../components/PageLayout';
 
 
 const Section = ({ children, className }) => (
-  <section className={`min-h-screen w-full flex flex-col justify-center items-center px-6 ${className}`}>
+  <section className={`w-full flex flex-col justify-center items-center px-6 ${className}`}>
     {children}
   </section>
 );
-
-const Card = ({ title, text, image, icon, className }) => (
-    <div className={`bg-[#121212] border border-[#2E2E2E] rounded-xl p-6 flex flex-col md:flex-row items-center gap-6 shadow-sm ${className}`}>
-      <div className="flex-1 space-y-3">
-        {icon && <div className="text-green-400 text-2xl">{icon}</div>}
-        <h3 className="text-white text-xl font-semibold">{title}</h3>
-        <p className="text-sm text-gray-300">{text}</p>
-      </div>
-      <img src={image} alt={title} className="w-48 h-auto rounded-lg object-cover" />
-    </div>
-  );
-  
 
 const cardData = [
     {
       title: "Connect with inspiring mentors",
       text: "Join a vibrant community where you can learn from accomplished women in tech, business, and creative fields. Discover new paths and unlock your potential.",
-      image: "/images/asset2.avif",
-      icon: "💬",
+      image: "/images/asset9.jpeg",
     },
     {
       title: "Discover exciting opportunities",
       text: "Our platform connects you with mentors who can guide you on your career journey. Embrace the possibilities and grow with us.",
-      image: "/images/asset3.avif",
-      icon: "🧭",
+      image: "/images/asset10.jpeg",
     },
     {
       title: "Foster meaningful connections",
       text: "Engage with mentors eager to share their wisdom and support your success. Build relationships that empower and inspire.",
-      image: "/images/asset4.avif",
-      icon: "✅",
+      image: "/images/asset11.jpeg",
     },
     {
       title: "Realize your potential",
       text: "Step into a world of growth and inspiration. Our mentors are here to support you every step of the way, helping you achieve your dreams.",
-      image: "/images/asset5.avif",
-      icon: "✨",
+      image: "/images/asset12.jpeg",
     },
   ];
   
@@ -55,100 +39,140 @@ const LandingPage = () => {
 
   return (
     <PageLayout>
-    <div className="bg-egr-gray text-white font-sans scroll-smooth">
+    <div className="bg-egr-gray text-black font-sans scroll-smooth">
       {/* Hero Section */}
-      <section className="flex flex-col md:flex-row items-center justify-between gap-12 px-6 md:px-16 lg:px-32 py-24 w-full">
-        {/* Left Text */}
-        <div className="flex-1 max-w-full md:max-w-2xl space-y-8">
-            <h1 className="text-6xl md:text-7xl font-extrabold leading-tight">
-            CONNECTING GIRLS TO WOMEN<br />WHO’VE BEEN THERE.
-            </h1>
-            <p className="text-2xl md:text-1xl text-gray-300">
-            Connect with inspiring women mentors in tech, business, and creative fields. Let’s grow and succeed together.
-            </p>
-            <br />
-            <button 
-            onClick={() => navigate('/search')}
-            className="bg-egr-green hover:bg-green-600 text-white font-medium px-5 py-2 rounded-md">Find a mentor</button>
+      <section className="relative w-full h-[600px] overflow-hidden">
+        {/* Left Image */}
+        <div className="absolute inset-0 w-1/2 h-full">
+          <img
+            src="/images/asset8.jpeg"
+            alt="Mentor Left"
+            className="w-full h-full object-cover"
+          />
         </div>
 
         {/* Right Image */}
-        <div className="flex-1 w-full flex justify-center relative">
-          {/* Background Halo */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white w-[200px] h-[300px] md:w-[400px] md:h-[400px] blur-3xl opacity-90 z-0"></div>
-
-          {/* Foreground Image */}
+        <div className="absolute right-0 top-0 w-1/2 h-full">
           <img
-            src="/images/asset1.avif"
-            alt="Mentors"
-            className="relative z-10 rounded-lg w-full max-w-2xl object-cover"
+            src="/images/asset12.jpeg"
+            alt="Mentor Right"
+            className="w-full h-full object-cover"
           />
         </div>
-        </section>
 
-      {/* Scrollable Sections From HomeScroll */}
-      <Section>
-        <h2 className="text-5xl font-bold mb-10 text-center">Shape your future with guidance</h2>
-        <div className="flex flex-wrap gap-8 w-full max-w-7xl">
-        {cardData.map((card, index) => (
-        <Card
-            key={index}
-            title={card.title}
-            text={card.text}
-            image={card.image}
-            icon={card.icon}
-            className={`${
-            index === 0 || index === 3
-                ? 'md:w-[53%] w-full md:min-h-[360px]'
-                : 'md:w-[35%] w-full md:min-h-[300px]'
-            }`}
-        />
-        ))}
+        {/* Center Overlay Box */}
+        <div className="absolute inset-0 flex items-center justify-center px-6">
+          <div className="bg-black bg-opacity-60 text-white p-8 rounded-xl text-center max-w-2xl space-y-6">
+            <h1 className="text-3xl md:text-4xl font-bold leading-tight">
+              CONNECTING GIRLS TO WOMEN<br />WHO’VE BEEN THERE.
+            </h1>
+            <p className="text-lg md:text-xl">
+              Connect with inspiring women mentors in tech, business, and creative fields. Let’s grow and succeed together.
+            </p>
+            <button
+              onClick={() => window.location.href = '/search'}
+              className="bg-egr2-cgrey text-black px-6 py-3 rounded-md font-semibold hover:bg-green-300 transition"
+            >
+              Find a Mentor
+            </button>
+          </div>
         </div>
-        </Section>
+      </section>
 
 
-        <Section className="bg-egr-cglight text-black py-12 min-h-[550px]">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-6xl">
+
+
+      <Section className="bg-egr-cglight text-black pt-8 pb-12 mt-[150px]">
+        <div className="space-y-10 max-w-6xl mx-auto">
           {[
             {
               title: 'Stories that inspire and empower',
               text: 'Uncover the transformative power of mentorship.',
-              img: '/images/asset7.avif',
+              img: '/images/asset15.jpeg',
             },
             {
               title: 'Journeys in tech and business',
               text: 'Explore the paths our mentors have taken.',
-              img: '/images/asset2.avif',
+              img: '/images/asset16.jpeg',
             },
             {
               title: 'Insights from creative leaders',
               text: 'Dive into the creative processes of our mentors.',
-              img: '/images/asset6.avif',
+              img: '/images/asset17.jpeg',
             },
             {
               title: 'Connections that last a lifetime',
               text: 'Discover how mentorship builds lasting relationships.',
-              img: '/images/asset4.avif',
+              img: '/images/asset14.jpeg',
             },
           ].map((item, i) => (
-            <div key={i} className="text-center">
-              <img src={item.img} alt={item.title} className="mb-5 rounded-lg mx-auto" />
-              <h2 className="text-2xl font-semibold">{item.title}</h2>
-              <p className="text-lg text-gray-700 mt-2">{item.text}</p>
+            <div
+              key={i}
+              className={`flex flex-col md:flex-row items-center gap-12 ${
+                i % 2 !== 0 ? 'md:flex-row-reverse' : ''
+              }`}
+            >
+              {/* Image */}
+              <div className="w-full md:w-1/2">
+                <img
+                  src={item.img}
+                  alt={item.title}
+                  className="w-full h-[400px] object-cover object-center rounded-xl"
+                />
+              </div>
+
+
+              {/* Text */}
+              <div className="w-full md:w-1/2 space-y-4 text-left">
+                <h2 className="text-3xl font-bold">{item.title}</h2>
+                <p className="text-lg text-black">{item.text}</p>
+              </div>
             </div>
           ))}
         </div>
       </Section>
 
 
-      <section className="bg-egr-black text-white py-20 px-6 md:px-20">
+
+
+
+      
+
+      {/* Scrollable Sections From HomeScroll */}
+      <section className="bg-[#FDF6E9] pt-12 pb-16 overflow-hidden">
+        <h2 className="text-5xl font-bold mb-10 text-center text-black">Shape your future with guidance</h2>
+
+        <div className="relative overflow-hidden w-full">
+          <div className="flex w-max animate-scroll-loop hover:[animation-play-state:paused]">
+            {/* Repeat content 3x for smooth loop */}
+            {[...Array(3)].flatMap(() => cardData).map((card, index) => (
+              <div
+                key={index}
+                className="bg-[#CFBFA9] text-black rounded-2xl border border-[#2E2E2E] w-[400px] mx-4 flex-shrink-0 shadow-md overflow-hidden hover:shadow-lg transition-all"
+              >
+                <img src={card.image} alt={card.title} className="h-56 w-full object-cover rounded-t-2xl" />
+                <div className="p-6 space-y-3">
+                  <div className="text-2xl">{card.icon}</div>
+                  <h3 className="text-xl font-bold">{card.title}</h3>
+                  <p className="text-sm">{card.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+
+
+
+      <section className="bg-egr-cglight text-black py-20 px-6 md:px-20">
         <div className="max-w-6xl mx-auto space-y-12">
             {/* Section Heading */}
             <div>
-            <p className="uppercase tracking-wide text-sm text-egr-green mb-2">Find the guidance you seek</p>
+            <p className="uppercase tracking-wide text-sm text-egr-black mb-2">Find the guidance you seek</p>
             <h2 className="text-4xl font-bold mb-4">Your inquiries, our insights</h2>
-            <p className="text-lg text-egr-green max-w-3xl">
+            <p className="text-lg text-egr-black max-w-3xl">
                 Discover answers to frequently asked questions about our mentorship community and learn how to embark on your journey.
             </p>
             </div>
@@ -157,7 +181,7 @@ const LandingPage = () => {
             <div className="space-y-10 divide-y divide-[#2E2E2E]">
             <div className="md:flex justify-between pt-6">
                 <h3 className="font-semibold text-lg mb-2 md:mb-0">How can I connect with a mentor?</h3>
-                <p className="text-egr-green md:ml-8">
+                <p className="text-egr-black md:ml-8">
                 Connecting with a mentor is straightforward! Use our intuitive search tool to find inspiring women in tech, business,
                 and creative fields eager to support you.
                 </p>
@@ -165,14 +189,14 @@ const LandingPage = () => {
 
             <div className="md:flex justify-between pt-6">
                 <h3 className="font-semibold text-lg mb-2 md:mb-0">Can I select my own mentor?</h3>
-                <p className="text-egr-green md:ml-8">
+                <p className="text-egr-black md:ml-8">
                 Yes, you can! Browse through mentor profiles and choose someone who matches your interests and aspirations for a tailored experience.
                 </p>
             </div>
 
             <div className="md:flex justify-between pt-6">
                 <h3 className="font-semibold text-lg mb-2 md:mb-0">Will there be any fees for this?</h3>
-                <p className="text-egr-green md:ml-8">
+                <p className="text-egr-black md:ml-8">
                 Joining our platform is completely free. We are committed to making mentorship accessible to all high school girls ready to learn and grow.
                 </p>
             </div>
@@ -202,14 +226,14 @@ const LandingPage = () => {
             </p>
             <button 
             onClick={() => navigate('/search')}
-            className="bg-egr-green text-black px-6 py-3 rounded-lg font-semibold hover:bg-green-400 transition">
+            className="bg-egr2-cgrey text-black px-6 py-3 rounded-lg font-semibold hover:bg-green-300 transition">
             Get started
             </button>
         </div>
         </section>
 
 
-        <footer className="bg-grey-200 text-black py-8 px-6">
+        <footer className="bg-black bg-opacity-50 text-black py-8 px-6 backdrop-blur-sm">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             {/* Logo + Name */}
             <div className="flex items-center gap-3">

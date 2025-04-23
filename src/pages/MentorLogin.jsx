@@ -30,7 +30,7 @@ const MentorLogin = () => {
 
   return (
     <PageLayout>
-    <section className="bg-black text-white py-20 px-6 md:px-20 w-full">
+    <section className="bg-egr2-cgrey text-white py-20 px-6 md:px-20 w-full">
     <div className="max-w-2xl mx-auto bg-white bg-opacity-80 text-black p-10 rounded-xl border border-egr-pink">
         <h2 className="text-2xl font-bold mb-6 text-center">Mentor Login</h2>
         {error && <p className="text-red-600 text-sm mb-4 text-center">{error}</p>}
@@ -59,7 +59,7 @@ const MentorLogin = () => {
           </div>
           <button
             type="submit"
-            className="bg-egr-green hover:bg-green-600 text-white font-medium px-5 py-2 rounded-md w-full"
+            className="bg-green-300 hover:bg-green-200 text-black font-medium px-5 py-2 rounded-md w-full"
           >
             Login
           </button>
