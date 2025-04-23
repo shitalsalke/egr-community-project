@@ -86,12 +86,12 @@ const MentorSearch = () => {
                   <div
                     key={mentor.id}
                     onClick={() => navigate(`/mentor/${mentor.id}`)}
-                    className={`flex-shrink-0 w-60 h-[400px] ${bgColor} text-black rounded-[120px] flex flex-col justify-end px-4 py-6 text-center shadow-md transition-transform hover:scale-105 cursor-pointer`}
+                    className={`flex-shrink-0 w-60 h-[400px] ${bgColor} text-black rounded-[80px] flex flex-col justify-end px-4 py-6 text-center shadow-md transition-transform hover:scale-105 cursor-pointer`}
                   >
                     <img
                       src={`/uploads/${mentor.profile_picture?.split('/').pop()}`}
                       alt={mentor.full_name}
-                      className="w-28 h-28 object-cover rounded-full mx-auto -mt-24 border-4 border-white shadow-sm"
+                      className="w-40 h-40 object-cover rounded-full mx-auto -mt-24 shadow-sm"
                     />
                     <div className="mt-6 space-y-1">
                       <h3 className="text-lg font-bold uppercase">{mentor.full_name}</h3>
