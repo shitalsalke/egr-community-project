@@ -9,10 +9,14 @@ const MentorSearch = () => {
   const [industry, setIndustry] = useState('');
   const [experience, setExperience] = useState('');
   const navigate = useNavigate();
+  const [majors, setMajors] = useState('');
+  const [certifications, setCertifications] = useState('');
 
   const handleSearch = async () => {
     try {
       const queryParams = new URLSearchParams();
+      if (majors) queryParams.append("majors", majors);
+      if (certifications) queryParams.append("certifications", certifications);
       if (searchQuery) queryParams.append("q", searchQuery);
       if (industry) queryParams.append("industry", industry);
       if (experience !== '') queryParams.append("min_experience", experience);
@@ -53,6 +57,28 @@ const MentorSearch = () => {
                 <option value="Healthcare">Healthcare</option>
               </select>
 
+              <select
+                onChange={(e) => setMajors(e.target.value)}
+                className="px-3 py-2 border rounded bg-white"
+              >
+                <option value="">All Majors</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Business">Business</option>
+                <option value="Education">Education</option>
+                <option value="Engineering">Engineering</option>
+              </select>
+
+              <select
+                onChange={(e) => setCertifications(e.target.value)}
+                className="px-3 py-2 border rounded bg-white"
+              >
+                <option value="">All Certifications</option>
+                <option value="PMP">PMP</option>
+                <option value="AWS Certified">AWS Certified</option>
+                <option value="Teaching License">Teaching License</option>
+              </select>
+
+
               <input
                 type="number"
                 placeholder="Min Experience"
@@ -91,12 +117,19 @@ const MentorSearch = () => {
                     <img
                       src={`/uploads/${mentor.profile_picture?.split('/').pop()}`}
                       alt={mentor.full_name}
-                      className="w-40 h-40 object-cover rounded-full mx-auto -mt-24 shadow-sm"
+                      className="w-28 h-28 object-cover rounded-full mx-auto -mt-24 shadow-sm"
                     />
                     <div className="mt-6 space-y-1">
                       <h3 className="text-lg font-bold uppercase">{mentor.full_name}</h3>
                       <p className="text-sm">{mentor.job_title}</p>
                     </div>
+                    <div className="text-xs uppercase font-semibold tracking-wide mt-2">
+                    {mentor.status === 'Unavailable' ? (
+                      <span className="text-red-600">Unavailable</span>
+                    ) : (
+                      <span className="text-green-600">Available</span>
+                    )}
+                  </div>
                   </div>
                 );
               })}

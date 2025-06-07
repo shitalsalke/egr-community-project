@@ -49,6 +49,14 @@ async def register_mentor(
     industry: str = Form(...),
     experience: int = Form(...),
     profile_picture: UploadFile = File(None),
+    availability: str = Form(None),
+    status: str = Form("Available"),
+    phone_number: str = Form(None),
+    high_school_diploma: str = Form(None),
+    colleges: str = Form(...),
+    degrees: str = Form(...),
+    social_links: str = Form(None),
+    linkedin_profile: str = Form(None),
     db: Session = Depends(get_db)
 ):
     data = {
@@ -59,7 +67,15 @@ async def register_mentor(
         "job_title": job_title,
         "bio": bio,
         "industry": industry,
-        "experience": experience
+        "experience": experience,
+        "availability":availability,
+        "status": status,
+        "phone_number": phone_number,
+        "high_school_diploma": high_school_diploma,
+        "colleges": colleges,
+        "degrees": degrees,
+        "social_links": social_links,
+        "linkedin_profile": linkedin_profile,
     }
     
     try:
@@ -70,9 +86,11 @@ async def register_mentor(
 
 @app.get("/mentors/search")
 def search_mentors(
-    q: str = Query(""),
+    q: str = Query("", alias="q"),
     industry: str = Query(None),
     min_experience: int = Query(None),
+    majors: str = Query(None),
+    certifications: str = Query(None),
     db: Session = Depends(get_db)
 ):
     keywords = q.lower().split()
@@ -91,6 +109,10 @@ def search_mentors(
 
     if industry:
         query = query.filter(Mentor.industry.ilike(f"%{industry}%"))
+    if majors:
+        query = query.filter(Mentor.majors.ilike(f"%{majors}%"))
+    if certifications:
+        query = query.filter(Mentor.certifications.ilike(f"%{certifications}%"))
     if min_experience is not None:
         query = query.filter(Mentor.experience >= min_experience)
 
@@ -124,6 +146,10 @@ def get_mentor(mentor_id: int, db: Session = Depends(get_db)):
         "industry": mentor.industry,
         "experience": mentor.experience,
         "profile_picture": mentor.profile_picture,
+        "availability": mentor.availability,
+        "majors": mentor.majors,
+        "certifications": mentor.certifications,
+        "status": mentor.status,
         "created_at": str(mentor.created_at),
     }
 

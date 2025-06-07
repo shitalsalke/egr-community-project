@@ -36,6 +36,7 @@ def create_mentor(db: Session, data: dict, file: UploadFile = None):
         bio=data["bio"],
         industry=data["industry"],
         experience=data["experience"],
+        availability=data["availability"],
         profile_picture=profile_pic_path
     )
     db.add(mentor)

@@ -20,16 +20,16 @@ const Navbar = () => {
           HOME
         </button>
         <button
-          onClick={() => navigate('/search')}
-          className="tracking-widest text-sm hover:underline transition"
-        >
-          SEARCH MENTORS
-        </button>
-        <button
           onClick={() => window.open('https://www.educatedgirlsrock.org/', '_blank')}
           className="tracking-widest text-sm hover:underline transition"
         >
           ABOUT US
+        </button>
+        <button
+          onClick={() => navigate('/search')}
+          className="tracking-widest text-sm hover:underline transition"
+        >
+          SEARCH MENTORS
         </button>
         <button
           onClick={() => navigate('/register')}

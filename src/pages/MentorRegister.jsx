@@ -12,11 +12,21 @@ const MentorRegister = () => {
     email: '',
     password: '',
     confirmPassword: '',
+    phoneNumber: '',
+    highSchoolDiploma: '',
+    colleges: '',
+    majors: '',
+    degrees: '',
+    certifications: '',
     profession: '',
     jobTitle: '',
     bio: '',
     industry: '',
     experience: '',
+    availability: '',
+    status: 'Available',
+    socialLinks: '',
+    linkedinProfile: '',
     profilePicture: null,
   });
 
@@ -48,6 +58,8 @@ const MentorRegister = () => {
     if (!formData.bio.trim()) newErrors.bio = 'Bio is required';
     if (!formData.industry.trim()) newErrors.industry = 'Industry is required';
     if (!formData.experience) newErrors.experience = 'Years of experience is required';
+    if (!formData.colleges.trim()) newErrors.colleges = 'Colleges attended is required';
+    if (!formData.degrees.trim()) newErrors.degrees = 'Degrees earned is required';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -66,6 +78,14 @@ const MentorRegister = () => {
     formDataToSend.append('bio', formData.bio);
     formDataToSend.append('industry', formData.industry);
     formDataToSend.append('experience', formData.experience);
+    formDataToSend.append('availability', formData.availability);
+    formDataToSend.append('status', formData.status);
+    formDataToSend.append('phone_number', formData.phoneNumber);
+    formDataToSend.append('high_school_diploma', formData.highSchoolDiploma);
+    formDataToSend.append('colleges', formData.colleges);
+    formDataToSend.append('degrees', formData.degrees);
+    formDataToSend.append('social_links', formData.socialLinks);
+    formDataToSend.append('linkedin_profile', formData.linkedinProfile);
   
     if (formData.profilePicture) {
       formDataToSend.append('profile_picture', formData.profilePicture);
@@ -138,6 +158,13 @@ const MentorRegister = () => {
             onChange={handleChange}
             error={errors.jobTitle}
           />
+          <Input label="Phone Number" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
+          <Input label="High School Diploma/GED" name="highSchoolDiploma" value={formData.highSchoolDiploma} onChange={handleChange} />
+          <Input label="Colleges Attended" name="colleges" value={formData.colleges} onChange={handleChange} error={errors.colleges} />
+          <Input label="Degrees Earned" name="degrees" value={formData.degrees} onChange={handleChange} error={errors.degrees} />
+          <Input label="Certifications & Licenses" name="certifications" value={formData.certifications} onChange={handleChange} />
+          <Input label="Social Media Links" name="socialLinks" value={formData.socialLinks} onChange={handleChange} />
+          <Input label="LinkedIn Profile Link" name="linkedinProfile" value={formData.linkedinProfile} onChange={handleChange} />
           <TextArea
             label="Bio"
             name="bio"
@@ -178,6 +205,34 @@ const MentorRegister = () => {
             />
           </div>
         )}
+
+        <div>
+          <label className="block font-medium">Availability</label>
+          <select
+            name="availability"
+            value={formData.availability}
+            onChange={handleChange}
+            className="w-full mt-1 p-2 border rounded"
+          >
+            <option value="">Select availability</option>
+            <option value="Short Term">Short Term</option>
+            <option value="Long Term">Long Term</option>
+            <option value="Informational Session">Informational Session</option>
+          </select>
+        </div>
+
+        <div>
+        <label className="block font-medium">Status</label>
+        <select
+          name="status"
+          value={formData.status}
+          onChange={handleChange}
+          className="w-full mt-1 p-2 border rounded"
+        >
+          <option value="Available">Available</option>
+          <option value="Unavailable">Unavailable</option>
+        </select>
+      </div>
 
         </div>
           <button type="submit" className="w-full bg-green-300 text-black py-2 px-4 rounded hover:bg-green-200 font-semibold">

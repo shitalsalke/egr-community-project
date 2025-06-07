@@ -49,13 +49,23 @@ const MentorProfile = () => {
             alt="mentor"
             className="w-24 h-24 rounded-full object-cover border"
           />
-          <div>
-            <h1 className="text-3xl font-bold text-egr-pink">{mentor.full_name}</h1>
-            <p className="text-white-600">{mentor.profession} – {mentor.job_title}</p>
-            <p className="text-sm text-white-500">
-              Industry: {mentor.industry} | Experience: {mentor.experience} yrs
-            </p>
-          </div>
+          <div className="space-y-1">
+          <h1 className="text-3xl font-bold text-egr-pink">{mentor.full_name}</h1>
+          <p className="text-gray-700 text-lg font-medium">{mentor.profession} – {mentor.job_title}</p>
+        
+          <ul className="text-sm text-gray-800 mt-2 space-y-1">
+            <li><strong>Status:</strong> {mentor.status}</li>
+            <li><strong>Availability:</strong> {mentor.availability}</li>
+            <li><strong>Industry:</strong> {mentor.industry}</li>
+            <li><strong>Major(s):</strong> {mentor.majors}</li>
+            <li><strong>Certifications:</strong> {mentor.certifications}</li>
+            <li><strong>Degrees:</strong> {mentor.degrees}</li>
+            <li><strong>Colleges Attended:</strong> {mentor.colleges}</li>
+            <li><strong>Phone:</strong> {mentor.phone_number}</li>
+            <li><strong>LinkedIn:</strong> <a href={mentor.linkedin_profile} target="_blank" className="text-blue-600 underline">{mentor.linkedin_profile}</a></li>
+          </ul>
+        </div>
+
         </div>
   
         {/* Bio */}
