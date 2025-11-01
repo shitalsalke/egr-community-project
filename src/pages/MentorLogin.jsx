@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import PageLayout from '../components/PageLayout';
+import { apiClient } from '../services/api';
 
 const MentorLogin = () => {
   const [email, setEmail] = useState('');
@@ -14,7 +14,7 @@ const MentorLogin = () => {
     setError('');
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/login', {
+      const response = await apiClient.post('/login', {
         email,
         password,
       });
@@ -22,7 +22,7 @@ const MentorLogin = () => {
       const { mentor_id } = response.data;
       // You can store this in localStorage or context (later)
       alert('Login successful');
-      navigate(`/mentor/${mentor_id}/edit`);
+      navigate(`/mentor/${mentor_id}`);
     } catch (err) {
       setError(err.response?.data?.detail || 'Login failed');
     }

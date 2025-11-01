@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import PageLayout from '../components/PageLayout';
+import { apiClient, withBaseUrl } from '../services/api';
 
 const MentorProfile = () => {
     const { id } = useParams();
@@ -10,7 +10,7 @@ const MentorProfile = () => {
     const [submitted, setSubmitted] = useState(false);
   
     useEffect(() => {
-      axios.get(`http://127.0.0.1:8000/mentor/${id}`)
+      apiClient.get(`/mentor/${id}`)
         .then(res => setMentor(res.data))
         .catch(err => console.error("Failed to fetch mentor", err));
     }, [id]);
@@ -22,12 +22,10 @@ const MentorProfile = () => {
       }
   
       try {
-        await axios.post(
-          `http://127.0.0.1:8000/mentor/${id}/request`,
+        await apiClient.post(
+          `/mentor/${id}/request`,
           new URLSearchParams({ message: requestMessage }),
-          {
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          }
+          { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
         );
         setSubmitted(true);
       } catch (err) {
@@ -45,7 +43,7 @@ const MentorProfile = () => {
         {/* Profile Header */}
         <div className="flex gap-4 items-center mb-6">
           <img
-            src={`/uploads/${mentor.profile_picture?.split('/').pop()}`}
+            src={mentor.profile_picture ? withBaseUrl(mentor.profile_picture) : '/images/hero.png'}
             alt="mentor"
             className="w-24 h-24 rounded-full object-cover border"
           />
@@ -57,17 +55,26 @@ const MentorProfile = () => {
             <li><strong>Status:</strong> {mentor.status}</li>
             <li><strong>Availability:</strong> {mentor.availability}</li>
             <li><strong>Industry:</strong> {mentor.industry}</li>
-            <li><strong>Major(s):</strong> {mentor.majors}</li>
-            <li><strong>Certifications:</strong> {mentor.certifications}</li>
-            <li><strong>Degrees:</strong> {mentor.degrees}</li>
-            <li><strong>Colleges Attended:</strong> {mentor.colleges}</li>
-            <li><strong>Phone:</strong> {mentor.phone_number}</li>
-            <li><strong>LinkedIn:</strong> <a href={mentor.linkedin_profile} target="_blank" className="text-blue-600 underline">{mentor.linkedin_profile}</a></li>
+            {mentor.majors && <li><strong>Major(s):</strong> {mentor.majors}</li>}
+            {mentor.certifications && <li><strong>Certifications:</strong> {mentor.certifications}</li>}
+            {mentor.degrees && <li><strong>Degrees:</strong> {mentor.degrees}</li>}
+            {mentor.colleges && <li><strong>Colleges Attended:</strong> {mentor.colleges}</li>}
+            {mentor.high_school_diploma && <li><strong>High School Diploma:</strong> {mentor.high_school_diploma}</li>}
+            {mentor.phone_number && <li><strong>Phone:</strong> {mentor.phone_number}</li>}
+            {mentor.linkedin_profile && (
+              <li>
+                <strong>LinkedIn:</strong>{' '}
+                <a href={mentor.linkedin_profile} target="_blank" rel="noreferrer" className="text-blue-600 underline">
+                  {mentor.linkedin_profile}
+                </a>
+              </li>
+            )}
+            {mentor.social_links && <li><strong>Social Links:</strong> {mentor.social_links}</li>}
           </ul>
         </div>
 
         </div>
-  
+
         {/* Bio */}
         <div className="bg-white text-black bg-opacity-90 rounded-xl p-8 border border-egr-pink">
         <h2 className="text-xl font-semibold mt-4 mb-2">About</h2>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import PageLayout from '../components/PageLayout';
+import { apiClient } from '../services/api';
 
 
 const MentorRegister = () => {
@@ -83,7 +83,9 @@ const MentorRegister = () => {
     formDataToSend.append('phone_number', formData.phoneNumber);
     formDataToSend.append('high_school_diploma', formData.highSchoolDiploma);
     formDataToSend.append('colleges', formData.colleges);
+    formDataToSend.append('majors', formData.majors);
     formDataToSend.append('degrees', formData.degrees);
+    formDataToSend.append('certifications', formData.certifications);
     formDataToSend.append('social_links', formData.socialLinks);
     formDataToSend.append('linkedin_profile', formData.linkedinProfile);
   
@@ -92,7 +94,7 @@ const MentorRegister = () => {
     }
   
     try {
-      const response = await axios.post('http://127.0.0.1:8000/register', formDataToSend, {
+      const response = await apiClient.post('/register', formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -161,6 +163,7 @@ const MentorRegister = () => {
           <Input label="Phone Number" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
           <Input label="High School Diploma/GED" name="highSchoolDiploma" value={formData.highSchoolDiploma} onChange={handleChange} />
           <Input label="Colleges Attended" name="colleges" value={formData.colleges} onChange={handleChange} error={errors.colleges} />
+          <Input label="Major(s) / Focus Areas" name="majors" value={formData.majors} onChange={handleChange} />
           <Input label="Degrees Earned" name="degrees" value={formData.degrees} onChange={handleChange} error={errors.degrees} />
           <Input label="Certifications & Licenses" name="certifications" value={formData.certifications} onChange={handleChange} />
           <Input label="Social Media Links" name="socialLinks" value={formData.socialLinks} onChange={handleChange} />

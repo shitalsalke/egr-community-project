@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import PageLayout from '../components/PageLayout';
+import { apiClient, withBaseUrl } from '../services/api';
 
 const MentorSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -14,14 +14,15 @@ const MentorSearch = () => {
 
   const handleSearch = async () => {
     try {
-      const queryParams = new URLSearchParams();
-      if (majors) queryParams.append("majors", majors);
-      if (certifications) queryParams.append("certifications", certifications);
-      if (searchQuery) queryParams.append("q", searchQuery);
-      if (industry) queryParams.append("industry", industry);
-      if (experience !== '') queryParams.append("min_experience", experience);
-
-      const response = await axios.get(`http://127.0.0.1:8000/mentors/search?${queryParams.toString()}`);
+      const response = await apiClient.get('/mentors/search', {
+        params: {
+          q: searchQuery || undefined,
+          industry: industry || undefined,
+          majors: majors || undefined,
+          certifications: certifications || undefined,
+          min_experience: experience !== '' ? Number(experience) : undefined,
+        },
+      });
       setMentors(response.data);
     } catch (error) {
       console.error("Search failed:", error);
@@ -107,6 +108,9 @@ const MentorSearch = () => {
                   'bg-[#FFF4E6]', // pastel peach
                 ];
                 const bgColor = bgColors[index % bgColors.length];
+                const profileImage = mentor.profile_picture
+                  ? withBaseUrl(mentor.profile_picture)
+                  : '/images/hero.png';
             
                 return (
                   <div
@@ -115,7 +119,7 @@ const MentorSearch = () => {
                     className={`flex-shrink-0 w-60 h-[400px] ${bgColor} text-black rounded-[80px] flex flex-col justify-end px-4 py-6 text-center shadow-md transition-transform hover:scale-105 cursor-pointer`}
                   >
                     <img
-                      src={`/uploads/${mentor.profile_picture?.split('/').pop()}`}
+                      src={profileImage}
                       alt={mentor.full_name}
                       className="w-28 h-28 object-cover rounded-full mx-auto -mt-24 shadow-sm"
                     />
@@ -130,6 +134,9 @@ const MentorSearch = () => {
                       <span className="text-green-600">Available</span>
                     )}
                   </div>
+                    {mentor.majors && (
+                      <p className="mt-2 text-xs text-gray-700">{mentor.majors}</p>
+                    )}
                   </div>
                 );
               })}

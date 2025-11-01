@@ -1,23 +1,20 @@
-import os
-
-from fastapi import (Depends, FastAPI, File, Form, HTTPException, Query,
-                     UploadFile)
+from fastapi import Body, Depends, FastAPI, File, Form, HTTPException, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from passlib.context import CryptContext
 from sqlalchemy import or_
 from sqlalchemy.orm import Session
-from fastapi import Body
-from fastapi.responses import JSONResponse
-from sqlalchemy.orm import Session
-from models import Mentor
-from passlib.context import CryptContext
 
 import crud
 import database
 import models
-from models import Mentor, MentorshipRequest
+from models import Mentor
 
 app = FastAPI()
+
+# Ensure uploads directory exists and expose it for static serving
+crud.UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+app.mount("/uploads", StaticFiles(directory=str(crud.UPLOAD_DIR)), name="uploads")
 
 # Allow frontend to call API
 app.add_middleware(
@@ -31,12 +28,20 @@ app.add_middleware(
 models.Base.metadata.create_all(bind=database.engine)
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+
 def get_db():
     db = database.SessionLocal()
     try:
         yield db
     finally:
         db.close()
+
+
+def _shorten_bio(bio: str, limit: int = 120) -> str:
+    if not bio:
+        return ""
+    return bio if len(bio) <= limit else bio[: limit - 3].rstrip() + "..."
+
 
 @app.post("/register")
 async def register_mentor(
@@ -54,10 +59,12 @@ async def register_mentor(
     phone_number: str = Form(None),
     high_school_diploma: str = Form(None),
     colleges: str = Form(...),
+    majors: str = Form(None),
     degrees: str = Form(...),
+    certifications: str = Form(None),
     social_links: str = Form(None),
     linkedin_profile: str = Form(None),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
 ):
     data = {
         "full_name": full_name,
@@ -68,32 +75,35 @@ async def register_mentor(
         "bio": bio,
         "industry": industry,
         "experience": experience,
-        "availability":availability,
+        "availability": availability,
         "status": status,
         "phone_number": phone_number,
         "high_school_diploma": high_school_diploma,
         "colleges": colleges,
+        "majors": majors,
         "degrees": degrees,
+        "certifications": certifications,
         "social_links": social_links,
         "linkedin_profile": linkedin_profile,
     }
-    
+
     try:
         mentor = crud.create_mentor(db, data, profile_picture)
-        return { "message": "Mentor registered successfully", "mentor_id": mentor.id }
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        return {"message": "Mentor registered successfully", "mentor_id": mentor.id}
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
 
 @app.get("/mentors/search")
 def search_mentors(
-    q: str = Query("", alias="q"),
+    q: str = Query(""),
     industry: str = Query(None),
     min_experience: int = Query(None),
     majors: str = Query(None),
     certifications: str = Query(None),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
 ):
-    keywords = q.lower().split()
+    keywords = [word for word in q.lower().split() if word]
     query = db.query(Mentor)
 
     for word in keywords:
@@ -119,17 +129,22 @@ def search_mentors(
     mentors = query.all()
     return [
         {
-            "id": m.id,
-            "full_name": m.full_name,
-            "profession": m.profession,
-            "job_title": m.job_title,
-            "bio": m.bio[:120] + "...",
-            "industry": m.industry,
-            "experience": m.experience,
-            "profile_picture": m.profile_picture
+            "id": mentor.id,
+            "full_name": mentor.full_name,
+            "profession": mentor.profession,
+            "job_title": mentor.job_title,
+            "bio": _shorten_bio(mentor.bio),
+            "industry": mentor.industry,
+            "experience": mentor.experience,
+            "availability": mentor.availability,
+            "status": mentor.status,
+            "majors": mentor.majors,
+            "certifications": mentor.certifications,
+            "profile_picture": mentor.profile_picture,
         }
-        for m in mentors
+        for mentor in mentors
     ]
+
 
 @app.get("/mentor/{mentor_id}")
 def get_mentor(mentor_id: int, db: Session = Depends(get_db)):
@@ -147,11 +162,18 @@ def get_mentor(mentor_id: int, db: Session = Depends(get_db)):
         "experience": mentor.experience,
         "profile_picture": mentor.profile_picture,
         "availability": mentor.availability,
+        "status": mentor.status,
         "majors": mentor.majors,
         "certifications": mentor.certifications,
-        "status": mentor.status,
-        "created_at": str(mentor.created_at),
+        "colleges": mentor.colleges,
+        "degrees": mentor.degrees,
+        "phone_number": mentor.phone_number,
+        "high_school_diploma": mentor.high_school_diploma,
+        "social_links": mentor.social_links,
+        "linkedin_profile": mentor.linkedin_profile,
+        "created_at": mentor.created_at.isoformat() if mentor.created_at else None,
     }
+
 
 @app.post("/mentor/{mentor_id}/request")
 def submit_request(mentor_id: int, message: str = Form(...), db: Session = Depends(get_db)):
@@ -163,22 +185,17 @@ def submit_request(mentor_id: int, message: str = Form(...), db: Session = Depen
     db.commit()
     db.refresh(new_request)
 
-    return { "message": "Request submitted successfully", "request_id": new_request.id }
+    return {"message": "Request submitted successfully", "request_id": new_request.id}
+
 
 @app.post("/login")
 def login(
     email: str = Body(...),
     password: str = Body(...),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
 ):
     mentor = db.query(Mentor).filter(Mentor.email == email).first()
-    if not mentor:
+    if not mentor or not pwd_context.verify(password, mentor.password_hash):
         raise HTTPException(status_code=401, detail="Invalid email or password.")
 
-    if not pwd_context.verify(password, mentor.password_hash):
-        raise HTTPException(status_code=401, detail="Invalid email or password.")
-
-    return {
-        "message": "Login successful",
-        "mentor_id": mentor.id
-    }
+    return {"message": "Login successful", "mentor_id": mentor.id}
